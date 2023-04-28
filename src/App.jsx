@@ -20,34 +20,33 @@ function App() {
     },
   ];
 
-  const age = 12;
-
   // const namesStartsWithLetterM = people.filter((person) =>
   //   person.name.startsWith("M")
   // );
 
+  const alertMe1 = (text = "") => {
+    alert("Hello", text);
+  };
+
+  const alertMe2 = () => {
+    alert("Hello alert me 2");
+  };
+
   return (
     <>
-      <div>
-        {/* {JSON.stringify(people)} */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <button onClick={alertMe2}>Click 1</button>
 
-        {people.map((person) => (
-          <h2
-            className={person.age > 23 ? "red-text" : "blue-text"}
-            style={{ textDecoration: person.age > 23 ? "underline" : "none" }}
-            key={person.name}
-          >
-            {person.name}
-          </h2>
-        ))}
+        <button onClick={() => alertMe1("murat can")}>Click 2</button>
 
-        {age > 18 ? (
-          <h2>18 yaşından büyüksünüz</h2>
-        ) : age === 18 ? (
-          <h2>18 yaşındasınız</h2>
-        ) : (
-          <h2>18 yaşından küçüksünüz</h2>
-        )}
+        <button
+          onClick={() => {
+            alertMe1("murat can");
+            alertMe2();
+          }}
+        >
+          Click 3 (multiple)
+        </button>
       </div>
     </>
   );
