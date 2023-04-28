@@ -23,13 +23,13 @@ function App() {
   return (
     <>
       <div>
-        {people.map((person) => {
-          return (
-            <>
-              <h5>{`${person.name} ${person.age}`}</h5>
-            </>
-          );
-        })}
+        {/* {JSON.stringify(people)} */}
+
+        {people
+          .filter((person) => person.name.startsWith("M"))
+          .map((person) => (
+            <h2 key={person.name}>{person.name}</h2>
+          ))}
       </div>
     </>
   );
