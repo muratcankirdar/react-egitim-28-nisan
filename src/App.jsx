@@ -1,6 +1,10 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
+
   const people = [
     {
       name: "Elif",
@@ -24,30 +28,29 @@ function App() {
   //   person.name.startsWith("M")
   // );
 
-  const alertMe1 = (text = "") => {
-    alert("Hello", text);
-  };
-
-  const alertMe2 = () => {
-    alert("Hello alert me 2");
-  };
-
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        <button onClick={alertMe2}>Click 1</button>
+      <label>İsim: </label>
+      <input
+        value={name}
+        onChange={(e) => {
+          // if (name.length < 10) {
+          //   console.log("if 1");
+          //   setName(e.target.value);
+          // } else {
+          //   alert("hop hemşerim nereye");
+          // }
 
-        <button onClick={() => alertMe1("murat can")}>Click 2</button>
-
-        <button
-          onClick={() => {
-            alertMe1("murat can");
-            alertMe2();
-          }}
-        >
-          Click 3 (multiple)
-        </button>
-      </div>
+          if (e.target.value.length < 10) {
+            console.log("if 2");
+            setName(e.target.value);
+            console.log(name);
+          } else {
+            alert("hop hemşerim nereye");
+          }
+        }}
+      />
+      <p>{name}</p>
     </>
   );
 }
