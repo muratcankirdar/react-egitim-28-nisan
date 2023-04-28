@@ -1,67 +1,20 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState } from "react";
 import "./App.css";
+import AddPerson from "./AddPerson";
 
 function App() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
-
-  const [people, setPeople] = useState([
-    {
-      name: "Elif",
-      age: 18,
-    },
-    {
-      name: "Murat",
-      age: 25,
-    },
-    {
-      name: "Mert",
-      age: 30,
-    },
-    {
-      name: "Hako",
-      age: 15,
-    },
-  ]);
-
-  // const namesStartsWithLetterM = people.filter((person) =>
-  //   person.name.startsWith("M")
-  // );
-
-  const addNewPerson = () => {
-    setPeople([...people, { name, age }]);
-  };
-
-  const namesStartsWithLetterM = useMemo(() => {
-    // useMemo ile yalnızca dependency array içindeki değişkenler değiştiğinde çalışır
-    console.log("tekrar hesaplandı");
-
-    return people.filter((person) => person.name.startsWith("M"));
-  }, [people]);
-
-  const alertValue = useCallback(() => {
-    console.log({ name, age });
-  }, [age, name]);
+  const [people, setPeople] = useState([]);
 
   return (
     <>
-      <h5>Name</h5>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <AddPerson people={people} setPeople={setPeople} />
 
-      <h5>Age</h5>
-      <input
-        type="number"
-        value={age}
-        onChange={(e) => Number(setAge(e.target.value))}
-      />
-
-      <br />
-      <br />
-      <button onClick={alertValue}>Click for Alert</button>
+      {people.map((person, index) => (
+        <div key={index}>
+          <h3>Name: {person.name}</h3>
+          <h3>Age: {person.age}</h3>
+        </div>
+      ))}
     </>
   );
 }
