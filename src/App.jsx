@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import "./App.css";
 
 function App() {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
 
-  const people = [
+  const [people, setPeople] = useState([
     {
       name: "Elif",
       age: 18,
@@ -22,50 +22,50 @@ function App() {
       name: "Hako",
       age: 15,
     },
-  ];
+  ]);
 
   // const namesStartsWithLetterM = people.filter((person) =>
   //   person.name.startsWith("M")
   // );
 
-  useEffect(() => {
-    // Bu effect her re-render olduğunda çalışır.
-    console.log("useEffect çalıştı, re-render");
-  });
+  const addNewPerson = () => {
+    setPeople([...people, { name, age }]);
+  };
 
-  useEffect(() => {
-    // Component ilk render olduğunda ve BİR kez çalışır.
-    console.log("Ben sadece bir kez çalışırım");
-  }, []);
+  const namesStartsWithLetterM = useMemo(() => {
+    // useMemo ile yalnızca dependency array içindeki değişkenler değiştiğinde çalışır
+    console.log("tekrar hesaplandı");
 
-  useEffect(() => {
-    console.log("name ya da age degisti.");
-    if (age > 18) {
-      console.log("teebrikler, büyüdünüz");
-    }
-  }, [name, age]);
+    return people.filter((person) => person.name.startsWith("M"));
+  }, [people]);
 
   return (
     <>
-      <label>İsim: </label>
+      <h5>Name</h5>
       <input
+        type="text"
         value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
+        onChange={(e) => setName(e.target.value)}
       />
 
-      <br />
-
-      <label>Yaş: </label>
+      <h5>Age</h5>
       <input
         type="number"
         value={age}
-        onChange={(e) => {
-          setAge(Number(e.target.value));
-        }}
+        onChange={(e) => Number(setAge(e.target.value))}
       />
-      <p>{name}</p>
+
+      <br />
+      <br />
+      <button onClick={addNewPerson}>Add New Person</button>
+
+      <br />
+
+      {namesStartsWithLetterM.map((person, index) => (
+        <h5 key={index}>
+          {person.name} - {person.age}
+        </h5>
+      ))}
     </>
   );
 }
