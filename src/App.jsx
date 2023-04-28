@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import "./App.css";
 
 function App() {
@@ -39,6 +39,10 @@ function App() {
     return people.filter((person) => person.name.startsWith("M"));
   }, [people]);
 
+  const alertValue = useCallback(() => {
+    console.log({ name, age });
+  }, [age, name]);
+
   return (
     <>
       <h5>Name</h5>
@@ -57,15 +61,7 @@ function App() {
 
       <br />
       <br />
-      <button onClick={addNewPerson}>Add New Person</button>
-
-      <br />
-
-      {namesStartsWithLetterM.map((person, index) => (
-        <h5 key={index}>
-          {person.name} - {person.age}
-        </h5>
-      ))}
+      <button onClick={alertValue}>Click for Alert</button>
     </>
   );
 }
