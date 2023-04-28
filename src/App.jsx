@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -28,26 +28,41 @@ function App() {
   //   person.name.startsWith("M")
   // );
 
+  useEffect(() => {
+    // Bu effect her re-render olduğunda çalışır.
+    console.log("useEffect çalıştı, re-render");
+  });
+
+  useEffect(() => {
+    // Component ilk render olduğunda ve BİR kez çalışır.
+    console.log("Ben sadece bir kez çalışırım");
+  }, []);
+
+  useEffect(() => {
+    console.log("name ya da age degisti.");
+    if (age > 18) {
+      console.log("teebrikler, büyüdünüz");
+    }
+  }, [name, age]);
+
   return (
     <>
       <label>İsim: </label>
       <input
         value={name}
         onChange={(e) => {
-          // if (name.length < 10) {
-          //   console.log("if 1");
-          //   setName(e.target.value);
-          // } else {
-          //   alert("hop hemşerim nereye");
-          // }
+          setName(e.target.value);
+        }}
+      />
 
-          if (e.target.value.length < 10) {
-            console.log("if 2");
-            setName(e.target.value);
-            console.log(name);
-          } else {
-            alert("hop hemşerim nereye");
-          }
+      <br />
+
+      <label>Yaş: </label>
+      <input
+        type="number"
+        value={age}
+        onChange={(e) => {
+          setAge(Number(e.target.value));
         }}
       />
       <p>{name}</p>
