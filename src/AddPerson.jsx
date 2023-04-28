@@ -3,13 +3,9 @@ import { useState } from "react";
 /* eslint-disable react/prop-types */
 // const AddPerson = ({ people, setPeople }) => {
 // const { people, setPeople } = props;
-const AddPerson = ({ people, setPeople }) => {
+const AddPerson = ({ people, addPerson, onSave }) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
-
-  const addNewPerson = () => {
-    setPeople([...people, { name, age }]);
-  };
 
   return (
     <>
@@ -31,7 +27,9 @@ const AddPerson = ({ people, setPeople }) => {
 
       <br />
 
-      <button onClick={addNewPerson}>Add Person</button>
+      <button onClick={() => addPerson({ name, age })}>Add Person</button>
+
+      <button onClick={onSave}>Save</button>
     </>
   );
 };
